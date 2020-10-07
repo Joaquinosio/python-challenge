@@ -1,11 +1,11 @@
 import os
 import csv
 
-poll_csv = os.path.join("PyPoll", "Resources", "election_data.csv")
+bank_csv = os.path.join("PyBank", "Resources", "budget_data.csv")
 
 result_row = []
 
-with open(poll_csv , "r",encoding="utf-8-sig") as csv_file:
+with open(bank_csv, "r",encoding="utf-8-sig") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
 
     #skip the header
@@ -14,42 +14,35 @@ with open(poll_csv , "r",encoding="utf-8-sig") as csv_file:
     print("-----------------------------")
     
     def count(csv_reader):
+        t = len(csv_reader)
+        total = 0
+        for p in csv_reader:
+            total = total + p
+        return total 
+    print(count(csv_reader))
+
+    for m in csv_reader:
+        print(f"Total profits/losses is {sum(m[2])}")
+
+    def average(csv_reader):
         n = len(csv_reader)
         total = 0
         for x in csv_reader:
             total = total + x
-        return total 
-    print(count(csv_reader))
-
-    myList = [poll_csv]
-    print(myList[3])
-
+        return total / n
+    print(average(csv_reader))
+           
     for y in csv_reader:
-        if float(y[3]) == "Khan":  
-            print(f' Khan has {count(csv_reader)} votes')
-        if float(y[3]) =="Li":  
-            print(f' Li has {count(csv_reader)} votes')
-        if float(y[3]) =="Correy":  
-            print(f' Correy has {count(csv_reader)} votes')
-
+        if float(y[2]) >=0:  
+            print(max(y))
+        else:
+            print(min(y))
 
 output_file = "results.csv"
 with open(output_file, "w") as file:
     csv_writer = csv.writer(file)
 
     csv_writer.writerows(output_file)
-  
-
-
-
-    
-
-            
-
-
-
-
-
 
 
 
